@@ -1,0 +1,206 @@
+html, body {
+  height: 100vh;
+  width: 100vw;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  /* display: flex; */
+  justify-content: center;
+  align-items: center;
+  font-family: Hiragino Kaku Gothic Pro, Hiragino Sans, Meiryo, sans-serif;
+  background-color:#a8a8a8;
+}
+
+    .overcontainer { 
+      display: grid; 
+      grid-template-columns: repeat(2, 1fr); 
+      grid-template-rows: repeat(1, 1fr); 
+      width:auto;
+      height: 100%;
+      /* align-items: center; */
+      /* background-color: #792242; */
+      /* justify-content: center; */
+    } 
+
+        /* Wrap the hanzi .grid in this */
+        .gridwrapper{ 
+          padding-top: 5%;
+          padding-inline: 5%;
+          /* height: 100vh; */
+          /* justify-content: center; */
+        }
+
+            .grid { 
+              display: grid; 
+              grid-template-columns: repeat(4, 1fr); 
+              grid-template-rows: repeat(4, 1fr); 
+              /* grid-template-columns: repeat(4, 1fr); 
+              grid-template-rows: repeat(4, 1fr);  */
+              grid-column-gap: 8px;
+              grid-row-gap: 8px; 
+              /* background-color:#414f8d; */
+            }
+                    button.hanziButton {
+                      /* margin:0 auto; */
+                      aspect-ratio: 1 / 1;
+                      padding: 5% 3%;
+                      /* width: 100%;
+                      height: 100%; */
+                      font-size: 5.4rem;
+                      text-align: center;
+                      border:1px transparent;
+                      /* for IOS etc */
+                      /* flex: 1 1 0; */
+                      /* min-width: 0; */
+                    }
+                    .hanziButton.base{
+                      color: #ededed;
+                      background-color: #666666;
+                    }
+                    .hanziButton.failure {
+                      background-color: #d93838;
+                      /* background-color: #ed3c3c; */
+                      color: #f7f7f7;
+                    }
+                    .hanziButton.success {
+                      color: #ffffff;
+                      /* background-color:rgb(78, 175, 91); */
+                      background-color: #18a94d;
+                    }
+                    .hanziButton.selected {
+                      background-color: #cdcdcd;
+                      color: #666666;
+                    }
+                    .hanziButton.partSuccess {
+                      background-color: #ddcf3f;
+                      color: #484848;
+                    }
+                    .hanziButton.finalState{
+                      color: #f7f7f7;
+                      background-color: #146fca;;
+                    }
+
+.infowrapper{ 
+  height: 100%;
+  /* background-color: #e7d942; */
+}                    
+      div.infopanel {
+        margin: auto;
+        overflow-x: hidden;
+        overflow-y: scroll;
+        max-height: 95vh;
+        justify-content: center;
+        padding-top: 5%;
+        padding-left: 15%;
+        padding-right: 15%;
+        /* background-color:#418d54; */
+      }
+      ::-webkit-scrollbar { 
+        display: none; 
+      }
+              /* https://www.tablesgenerator.com/html_tables */
+              .tg {
+                border-collapse: collapse;
+                border-spacing: 0;
+                table-layout: fixed; width: 100%; align-items: center;
+              }
+                      .tg td {
+                        border-color: black;
+                        border-style:dotted;
+                        border-width: 1px;
+                        font-family: Arial, sans-serif;
+                        font-size: 14px;
+                        overflow: hidden;
+                        padding: 10px 5px;
+                        word-break: normal;
+                      }
+
+                      .tg th {
+                        border-color: black;
+                        border-style:dotted;
+                        border-width: 1px;
+                        font-family: Arial, sans-serif;
+                        font-size: 14px;
+                        font-weight: normal;
+                        overflow: hidden;
+                        padding: 10px 5px;
+                        word-break: normal;
+                      }
+
+                      .tg .tg-nrix {
+                        text-align: center;
+                        vertical-align: middle;
+                        overflow-wrap: break-word;
+                        
+                      }
+                      .tg .tg-nrix.smaller{
+                        font-size: 16px;
+                      }
+                      .tg .tg-nrix.medium{
+                        font-size: 18px;
+                      }
+ #title {
+  width: auto;
+  font-size:xx-large;
+  font-weight: lighter;
+  text-align:justify;
+  color: #1b1b1b;
+  padding-left: 2.5%;
+  padding-right: 2.5%;
+  padding-top: 7%;
+}
+#title:after {
+  content: "";
+  display: inline-block;
+  width: 100%;
+}                
+
+#statisticalfellow{
+  text-align:left; 
+  padding:2%;
+}
+                                                  
+
+
+@media(max-width:800px){
+
+  .overcontainer{
+    grid-template-columns: repeat(1, 1fr); 
+    grid-template-rows: repeat(2, 1fr); 
+    /* overflow-x: hidden; */
+    /* overflow-y: scroll; */
+  }
+
+  .gridwrapper {
+    padding-top: 1%;
+    padding-inline: 1%;
+
+  }  
+
+  .grid{
+    padding: 2%;
+
+  }
+
+  div.infopanel{
+    padding-top: 2%;
+    padding-left: 5%;
+    padding-right: 5%;
+  }
+
+  button.hanziButton {
+    font-size: 3rem;
+  }
+
+  #title{
+    padding: 5% 3%;
+  }
+
+  #statisticalfellow{
+    text-align:end;
+    padding-right: 3%;
+    padding-bottom: 2%; 
+  }
+}
