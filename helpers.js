@@ -60,7 +60,7 @@ function getListOfHanzi(words, limit)
     do {
       // Get a random word by extracting a Key from the 'wordlist' Map
       passer = Array.from(keys[Math.floor(Math.random() * keys.length)]);
-    } while (passer.some(e => capturedHanziList.includes(e)) == true && passer[0] != passer[1]); // ensure that no key is repeated && that no word contiains the same character
+    } while ((passer.some(e => capturedHanziList.includes(e)) == true) || (passer[0] == passer[1])); // ensure that no key is repeated && that no word contiains the same character
     
     capturedHanziList.push(...passer.map(String)); // get that Array as some strings  
     state.originalWords.push(passer.join("")); // store those strings as words
@@ -162,7 +162,6 @@ function tryHanzi(newHanzi, id) {
         // Colour the successful buttons
         document.getElementById(id).className = "hanziButton partSuccess";
         document.getElementById(state.prevButton).className = "hanziButton partSuccess";
-        console.log("hahaha")
 
         // add the pair of buttons to the state's success register (this used to maintain green tiles)
         // state.successes.push(id);
