@@ -26,8 +26,8 @@ body {
 
         /* Wrap the hanzi .grid in this */
         .gridwrapper{ 
-          padding-top: 5%;
-          padding-inline: 5%;
+          /* padding-top: 5%;
+          padding-inline: 5%; */
           /* height: 100vh; */
           /* justify-content: center; */
         }
@@ -40,17 +40,22 @@ body {
               grid-template-rows: repeat(4, 1fr);  */
               grid-column-gap: 8px;
               grid-row-gap: 8px; 
+              width: auto;          
+              padding: 3%;
+              box-sizing: border-box; /* Include the padding and border in the total width and height of the button */
+
               /* background-color:#414f8d; */
             }
                     button.hanziButton {
-                      /* margin:0 auto; */
-                      aspect-ratio: 1 / 1;
-                      padding: 5% 3%;
-                      /* width: 100%;
-                      height: 100%; */
-                      font-size: 5.4rem;
+                      padding: 0 3%;
+                      font-size: 4rem;
                       text-align: center;
                       border:1px transparent;
+                      padding-top: 10%; /* Set the padding-top to the same value as the desired width */
+                      padding-bottom: 10%; /* Set the padding-top to the same value as the desired width */
+                      width: 100%; /* Set the width to 100% to fill the available width of the container */
+                      box-sizing: border-box; /* Include the padding and border in the total width and height of the button */
+                      /* flex: 1 1 0; */
                       /* for IOS etc */
                       /* flex: 1 1 0; */
                       /* min-width: 0; */
@@ -164,7 +169,7 @@ body {
                                                   
 
 
-@media(max-width:800px){
+@media(max-width:850px){
 
   .overcontainer{
     grid-template-columns: repeat(1, 1fr); 
@@ -191,8 +196,12 @@ body {
   }
 
   button.hanziButton {
-    font-size: 3rem;
-  }
+    font-size: 3.25rem;
+
+    padding: 0 3%;
+                      
+    padding-top: 10%; /* Set the padding-top to the same value as the desired width */
+    padding-bottom: 10%;  }
 
   #title{
     padding: 5% 3%;
