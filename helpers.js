@@ -310,6 +310,9 @@ function revealOnePair() {
     }
   }
 
+  stats.thisGridPasses++;
+  stats.errors += 3;
+
   addToUserList(validRevealPair);
   state.submittedWords.push(validRevealPair);
   state.successes.push(button1);
@@ -318,9 +321,6 @@ function revealOnePair() {
   state.taps = 0; 
   state.prevButton = "";
   state.hanziPair = [];
-
-  stats.thisGridPasses++;
-  stats.errors += 3;
 
   document.getElementById(button1).className = "hanziButton success";
   document.getElementById(button1).innerHTML = dictionary[validRevealPair[0]].tc;
