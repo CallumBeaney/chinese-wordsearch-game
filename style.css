@@ -19,18 +19,15 @@ body {
       grid-template-rows: repeat(1, 1fr); 
       width:auto;
       height: 100%;
-      /* align-items: center; */
-      /* background-color: #792242; */
-      /* justify-content: center; */
     } 
 
         /* Wrap the hanzi .grid in this */
-        .gridwrapper{ 
-          /* padding-top: 5%;
-          padding-inline: 5%; */
-          /* height: 100vh; */
-          /* justify-content: center; */
-        }
+        /* .gridwrapper{ 
+          padding-top: 5%;
+          padding-inline: 5%;
+          height: 100vh;
+          justify-content: center;
+        } */
 
             .grid { 
               display: grid; 
@@ -46,19 +43,21 @@ body {
 
               /* background-color:#414f8d; */
             }
+
                     button.hanziButton {
                       padding: 0 3%;
                       font-size: 4rem;
                       text-align: center;
                       border:1px transparent;
-                      padding-top: 10%; /* Set the padding-top to the same value as the desired width */
-                      padding-bottom: 10%; /* Set the padding-top to the same value as the desired width */
-                      width: 100%; /* Set the width to 100% to fill the available width of the container */
-                      box-sizing: border-box; /* Include the padding and border in the total width and height of the button */
+                      padding-top: 10%;
+                      padding-bottom: 10%; 
+                      width: 100%; 
+                      box-sizing: border-box;
                       /* flex: 1 1 0; */
                       /* for IOS etc */
                       /* flex: 1 1 0; */
                       /* min-width: 0; */
+
                     }
                     .hanziButton.base{
                       color: #ededed;
@@ -81,10 +80,6 @@ body {
                     .hanziButton.partSuccess {
                       background-color: #ddcf3f;
                       color: #484848;
-                    }
-                    .hanziButton.finalState{
-                      color: #f7f7f7;
-                      background-color: #146fca;;
                     }
 
 .infowrapper{ 
@@ -162,11 +157,31 @@ body {
   width: 100%;
 }                
 
-#statisticalfellow{
-  text-align:left; 
-  padding:2%;
+
+.button-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 1.5% 3% 3%;
 }
-                                                  
+
+      #statisticalfellow{
+        text-align:left; 
+        visibility: hidden;
+      }
+
+      button.revealfriend {
+        padding: 2%;
+        margin-top: -1%;
+        white-space: nowrap;
+        text-align: center;
+        border:1px transparent;
+        box-sizing: border-box;
+        background-color: #555555;
+        color: #dedede;
+        font-size: 1rem; 
+      }
+                                                      
 
 
 @media(max-width:850px){
@@ -211,5 +226,9 @@ body {
     text-align:end;
     padding-right: 3%;
     padding-bottom: 2%; 
+  }
+
+  .button-wrapper {
+    margin: 1.5% 1.8% 3%;
   }
 }

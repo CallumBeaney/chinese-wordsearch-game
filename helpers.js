@@ -1,34 +1,33 @@
-/* The fundamental idea of this game is to generate 16 hanzi from 8 seed words,
+/* The basic idea of this game is to generate 16 hanzi from 8 seed words,
     which the user must then discover. But, the pairs the user makes from those 
     16 hanzi can also be compared against a dictionary of words. The user must 
-    find all 8 seed words to win, but 
+    find all 8 seed words to win. 
     This allows for unpredictable (natural) word-identification + challenge. */
 
 let state = {
-  "taps" : 0,                  // track user buttontaps
+  "taps" :     0 ,             // track user buttontaps: 1 or 0.
   "hanziPair" : [],           // the user's currently-selected hanzi pair
-  "successes" : [],          // all successful hanzi thus far
-  "gridHanzi" : [],         // the current grid's 16 hanzi
-  "prevButton" : "",       // the previously-tapped button's DOM-element ID
-  "originalWords" : [],   // the original words for this gridHanzi.
-  "submittedWords" : [], // words that have been added to the list
+  "successes" :  [],         // all successful hanzi thus far __AS GRID BUTTON IDs__
+  "gridHanzi" :   [],       // the current grid's 16 hanzi
+  "prevButton" :   "",     // the previously-tapped button's DOM-element ID
+  "originalWords" : [],   // the original word seeds for  gridHanzi.
+  "submittedWords" : [], // words that have been added to the list inc. "yellow button" successes.
 };
 
 let stats = {
-  "thisGridPasses" : 0, // successful words found for a given grid
-  "passCounter" : 0,   // the number of successful words found
-  "gridCounter" : 0,  //  number of grids completed
-  "errors" : 0,    // 2-hanzi guesses made by the user
+  "thisGridPasses" : 0,  // successful words found for a given grid
+  "passCounter"    : 0,  //  the number of successful words found
+  "gridCounter"    : 0,  //   number of grids completed
+  "errors"         : 0,  //    2-hanzi guesses made by the user
 };
 
 
 const numWords = 8; // results in double the number of hanzi
 
 !function main() {
-  console.log("Cheater!")
+  console.log("Cheater!");
   buildGrid(numWords);
 }();
-
 
 
 function buildGrid(){
@@ -40,7 +39,7 @@ function buildGrid(){
   const hanziList = getListOfHanzi(wordList, numWords); // must make const or shuffling operations do not work
   state.gridHanzi = hanziList;
   const shuffledList = shuffle(hanziList);
-  // buildButtons(hanjiList); // for debugging
+  // buildButtons(hanziList); // for debugging
   buildButtons(shuffledList); 
 }
 
@@ -88,17 +87,11 @@ function buildButtons(hanziList){
 }
 
 
-
-
-
 function tryHanzi(newHanzi, id) {
-  // console.log(state)
-  resetButtons(id, state.prevButton);
+
+  resetButtons(id);
 
   if (state.taps == 0){ 
-
-    // console.log(state.taps)
-    // console.log(document.getElementById(id).className)
     
     document.getElementById(id).className = "hanziButton selected"; 
 
@@ -140,7 +133,6 @@ function tryHanzi(newHanzi, id) {
         state.taps--; 
         state.prevButton = "";
         state.hanziPair = [];
-        // console.log("well done; you've identified a pair!");
 
         if (checkAllButtonsPassed()){ // the user has completed a grid -- make a new one!
           buildGrid(numWords);
@@ -149,7 +141,7 @@ function tryHanzi(newHanzi, id) {
         changeStats();
         return;
     } 
-    else if (lookup in wordList) 
+    else if (lookup in wordList && !state.submittedWords.includes(lookup)) 
     {
         stats.passCounter++;
         stats.thisGridPasses++;
@@ -163,16 +155,14 @@ function tryHanzi(newHanzi, id) {
         document.getElementById(id).className = "hanziButton partSuccess";
         document.getElementById(state.prevButton).className = "hanziButton partSuccess";
 
-        // add the pair of buttons to the state's success register (this used to maintain green tiles)
-        // state.successes.push(id);
-        // state.successes.push(state.prevButton);
-
         // reset state
         state.taps--; 
         state.prevButton = "";
         state.hanziPair = [];
 
-        changeStats()
+        changeStats();
+        console.log("successes: " + state.submittedWords);
+
         return;
     } 
     else 
@@ -243,10 +233,9 @@ function resetButtons(thisId, prevId) {
 
 
 function addToUserList(word) {
-
-  if (stats.passCounter == 1) {
-    document.getElementById("title").remove();
-  }
+  // if (stats.passCounter == 1) {
+  //   document.getElementById("title").remove();
+  // }
   const kana = wordList[word].p;
   const definition = wordList[word].d;
 
@@ -268,7 +257,7 @@ function addToUserList(word) {
   const hanzi1eng  = dictionary[word[0]].yw == null ? "英文翻译不可用" : dictionary[word[0]].yw;
 
   buildElem  += '<tbody><tr>' 
-              + '<th class="tg-nrix" style="width: 50%; font-size:22px">' + hanzi1tradChar + '</td>';
+              + '<th class="tg-nrix" style="width: 50%; font-size:25px">' + hanzi1tradChar + '</td>';
 
   if (hanzi1eng.length >= 20) {
     buildElem += '<td class="tg-nrix smaller">' + hanzi1eng + '</td>';
@@ -284,7 +273,7 @@ function addToUserList(word) {
   const hanzi2eng  = dictionary[word[1]].yw == null ? "英文翻译不可用" : dictionary[word[1]].yw;
 
   buildElem  += '<tbody><tr>' 
-              + '<th class="tg-nrix" style="width: 50%; font-size:22px">' + hanzi2tradChar + '</td>';
+              + '<th class="tg-nrix" style="width: 50%; font-size:25px">' + hanzi2tradChar + '</td>';
 
   if (hanzi2eng.length >= 20) {
     buildElem += '<td class="tg-nrix smaller">' + hanzi2eng + '</td>';
@@ -299,6 +288,49 @@ function addToUserList(word) {
 
   document.getElementById("infolad").insertAdjacentHTML("afterbegin", buildElem);
   updateScroll();
+}
+
+
+function revealOnePair() {
+  resetButtons(undefined);
+
+  let validRevealPair = "";
+  validRevealPair = state.originalWords.find(e => !(state.submittedWords.includes(e)));
+
+  let buttons = document.querySelectorAll('.hanziButton');  // bc checking against validRevealPair, only grey buttons get through loop
+  let button1, button2;
+  for (let i = 0; i < buttons.length; i++) {
+    if (button1 == undefined && buttons[i].innerHTML.includes(validRevealPair[0])) {
+      button1 = buttons[i].id;
+      // console.log("button1:" + button1);
+    }
+    if(button2 == undefined && buttons[i].innerHTML.includes(validRevealPair[1])){
+      button2 = buttons[i].id;
+      // console.log("button2:" + button2);
+    }
+  }
+
+  addToUserList(validRevealPair);
+  state.submittedWords.push(validRevealPair);
+  state.successes.push(button1);
+  state.successes.push(button2);
+
+  state.taps = 0; 
+  state.prevButton = "";
+  state.hanziPair = [];
+
+  stats.thisGridPasses++;
+  stats.errors += 3;
+
+  document.getElementById(button1).className = "hanziButton success";
+  document.getElementById(button1).innerHTML = dictionary[validRevealPair[0]].tc;
+  document.getElementById(button2).className = "hanziButton success";
+  document.getElementById(button2).innerHTML = dictionary[validRevealPair[1]].tc;
+
+  if (checkAllButtonsPassed()) {
+    buildGrid(numWords);
+  }
+  changeStats();
 }
 
 
@@ -317,8 +349,10 @@ function shuffle (arr) {
 
 function changeStats(){
   // ◯  ○ ◎  ╳ ᎒᎒᎒  ✕
-  const buildHTML = " □ " + (stats.gridCounter + "　○ " + stats.passCounter + "　⤫ " + stats.errors);
-  document.getElementById("statisticalfellow").innerHTML = buildHTML;
+  const buildHTML = "　□ " + (stats.gridCounter + "　○ " + stats.passCounter + "　⤫ " + stats.errors);
+  let button = document.getElementById("statisticalfellow");
+  button.innerHTML = buildHTML;
+  button.style.visibility = 'visible';
 }
 
 
