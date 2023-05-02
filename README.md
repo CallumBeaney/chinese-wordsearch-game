@@ -10,7 +10,8 @@ Each grid of 16 hanzi is built from 8 random seed words. Tap 2 hanzi and, if the
 These 16 hanzi might contain more than just those 8 combinations... when you find such a word, the tiles will briefly turn gold, and the word added to your list. 
 
 ## Acknowledgements 
-My thanks to [kevb34ns](https://github.com/kevb34ns/CEDICT2JSON) for providing a JSON compiler for the Chinese dictionary CEDICT.
+My thanks to [Kevin K. Yang](https://github.com/kevb34ns) for making [CEDICT2JSON](https://github.com/kevb34ns/CEDICT2JSON), a JSON compiler for the Chinese dictionary CEDICT, and also for making [Pinyinify](https://github.com/kevb34ns/pinyinify).  
   
-I edited & compiled much of the rest of the dictionary data together myself.  
+In want of a non-API dependent program I edited & compiled much of the rest of the dictionary data together myself. This was extremely frustrating and Yang's two contributions were an enormous help as such.  
+  
 If you want the un-minified files just contact me.  

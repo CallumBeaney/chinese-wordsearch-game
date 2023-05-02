@@ -1,8 +1,8 @@
 /* The basic idea of this game is to generate 16 hanzi from 8 seed words,
-    which the user must then discover. But, the pairs the user makes from those 
-    16 hanzi can also be compared against a dictionary of words. The user must 
-    find all 8 seed words to win. 
-    This allows for unpredictable (natural) word-identification + challenge. */
+  which the user must then discover. The user must find all 8 seed words to win.  
+  But, the pairs the user makes from those 16 hanzi are compared against a dictionary of words. 
+  This allows for unpredictable (natural) word-identification + challenge. 
+*/
 
 let state = {
   "taps" :     0 ,             // track user buttontaps: 1 or 0.
@@ -42,7 +42,6 @@ function buildGrid(){
   // buildButtons(hanziList); // for debugging
   buildButtons(shuffledList); 
 }
-
 
 // Helpers hereafter __________________________________
 
@@ -236,15 +235,15 @@ function addToUserList(word) {
   // if (stats.passCounter == 1) {
   //   document.getElementById("title").remove();
   // }
-  const kana = wordList[word].p;
   const definition = wordList[word].d;
+  const pinyin = pinyinify(wordList[word].p);
 
   // let buildElem = "#" + stats.passCounter;
   let buildElem = "□ " + stats.gridCounter + "　○ " + stats.thisGridPasses;
   buildElem  += '<table class="tg"><colgroup><col style="width: 25%"><col style="width: 50%"><col style="width: 50%">'
               + '<thead><tr>' 
               +   '<th class="tg-nrix" style="font-size: x-large;">' + word + '</th>'
-              +   '<th class="tg-nrix medium">' + kana + '</th>';
+              +   '<th class="tg-nrix medium">' + pinyin + '</th>';
   if (definition.length >= 10) {
     buildElem += '<th class="tg-nrix" style="font-size: 18px;">' + definition + '</th></tr></thead>';
   } else {              
@@ -267,7 +266,6 @@ function addToUserList(word) {
 
   buildElem += '<td class="tg-nrix medium">' + hanzi1zhuyin + '</td></tr>';
   
-  
   const hanzi2tradChar = dictionary[word[1]].tc;
   const hanzi2zhuyin = dictionary[word[1]].zy == null ? "注音数据不可用" : dictionary[word[1]].zy;
   const hanzi2eng  = dictionary[word[1]].yw == null ? "英文翻译不可用" : dictionary[word[1]].yw;
@@ -281,9 +279,7 @@ function addToUserList(word) {
     buildElem += '<td class="tg-nrix medium">' + hanzi2eng + '</td>';
   }
 
-  buildElem += '<td class="tg-nrix medium">' + hanzi2zhuyin + '</td></tr>';
-
-                          
+  buildElem += '<td class="tg-nrix medium">' + hanzi2zhuyin + '</td></tr>';     
   buildElem  += '</tbody></table><br>';
 
   document.getElementById("infolad").insertAdjacentHTML("afterbegin", buildElem);
@@ -354,7 +350,6 @@ function changeStats(){
   button.innerHTML = buildHTML;
   button.style.visibility = 'visible';
 }
-
 
 function updateScroll() 
 {
